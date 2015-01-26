@@ -117,7 +117,10 @@ class English(object):
         tokens = self.tokenizer(text)
         if tag or parse and self.has_tagger_model:
             self.tagger(tokens)
-        if parse and self.has_parser_model:
+        if parse: 
+            if not self.has_parser_model:
+                raise ValueError('Parsing requires a parsing model. '
+                    'Did you run "python -m spacy.en.download"?')
             self.parser(tokens)
         return tokens
 
